@@ -1,6 +1,6 @@
-## Authentication/Encryption Setup for Prometheus with Node Exporter
+# Authentication/Encryption Setup for Prometheus with Node Exporter
 
-# This guide walks you through setting up Authentication and Encryption in Prometheus along with Node Exporter using self-signed certificates and basic authentication.
+## This guide walks you through setting up Authentication and Encryption in Prometheus along with Node Exporter using self-signed certificates and basic authentication.
 Certificate Generation for Node Exporter
        
 * To start, we need to generate self-signed certificates for Node Exporter.
