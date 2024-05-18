@@ -17,14 +17,14 @@ Create a directory for Node Exporter configuration:
      ```
 Move the generated keys to the Node Exporter directory:
 
-    ```bash
+    ```
     sudo mv node_exporter.* /etc/node_exporter/
     ```
     
 Create a config.yml file with TLS configuration:
 
 ```yml
-tls_server_config:
+  tls_server_config:
   cert_file: node_exporter.crt
   key_file: node_exporter.key
 ``` 
@@ -51,17 +51,19 @@ Update the systemd service of Node Exporter to include TLS configuration:
     WantedBy=multi-user.target
     ```
 Reload the systemd daemon and restart Node Exporter:
-  ```bash
+  ```
      sudo systemctl daemon-reload
      sudo systemctl restart node_exporter
   ```
 Update Prometheus Configuration
 
 Copy the node_exporter.crt file to the Prometheus server at /etc/prometheus and update permissions:
-    ```bash
+
+    ```
     sudo scp /etc/node_exporter/node_exporter.crt aya@192.168.56.110:/etc/prometheus
     sudo chown prometheus:prometheus /etc/prometheus/node_exporter.crt
     ```
+    
 Update the Prometheus configuration file (prometheus.yml) with scheme and TLS changes:
 ```yml
 scrape_configs:
@@ -76,28 +78,32 @@ scrape_configs:
     static_configs:
       - targets: ['192.168.56.111:9100']
  ```
+
 ##Restart Prometheus:
+
      ```bash
      sudo systemctl restart prometheus
      ```
+     
 ##Authentication Setup
 ##To set up authentication, we need to create a hash of the password using htpasswd:
 
-    ```bash
+    ```
     sudo apt-get update && sudo apt install apache2-utils -y
     htpasswd -nBC 12 "" | tr -d ':\n'
     ```
+    
 Update the config.yml file for Node Exporter with the username and hashed password.
 ##Restart Node Exporter:
 
-    ```bash
+    ```
     sudo systemctl restart node_exporter
     ```
     
 ##Update the Prometheus YAML file with basic authentication for the specific job.
 Restart Prometheus server:
 
-    ```bash
+    ```
     sudo systemctl restart prometheus
     ```
     
