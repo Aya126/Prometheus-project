@@ -107,5 +107,8 @@ Restart Prometheus server:
     sudo systemctl restart prometheus
     ```
     
-Now you have successfully set up Auth
-* entication/Encryption in Prometheus with Node Exporter.
+* Now you have successfully set up Auth entication/Encryption in Prometheus with Node Exporter.
+
+
+
+
