@@ -2,8 +2,9 @@
 
 This guide walks you through setting up Authentication and Encryption in Prometheus along with Node Exporter using self-signed certificates and basic authentication.
 Certificate Generation for Node Exporter
-              
+          
 To start, we need to generate self-signed certificates for Node Exporter.
+
     ```bash
     sudo openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout node_exporter.key -out node_exporter.crt -subj 
     "/C=US/ST=California/L=Oakland/O=MyOrg/CN=localhost" -addext "subjectAltName = DNS:localhost"
@@ -17,7 +18,7 @@ Move the generated keys to the Node Exporter directory:
     sudo mv node_exporter.* /etc/node_exporter/
     ```
 Create a config.yml file with TLS configuration:
-```bash
+```yml
 tls_server_config:
   cert_file: node_exporter.crt
   key_file: node_exporter.key
@@ -56,7 +57,7 @@ Copy the node_exporter.crt file to the Prometheus server at /etc/prometheus and 
     sudo chown prometheus:prometheus /etc/prometheus/node_exporter.crt
     ```
 Update the Prometheus configuration file (prometheus.yml) with scheme and TLS changes:
-```bash
+```yml
 scrape_configs:
   - job_name: 'Linux Server'
     scheme: https
@@ -75,15 +76,19 @@ scrape_configs:
      ```
 ##Authentication Setup
 ##To set up authentication, we need to create a hash of the password using htpasswd:
+
     ```bash
     sudo apt-get update && sudo apt install apache2-utils -y
+    
     htpasswd -nBC 12 "" | tr -d ':\n'
     ```
 Update the config.yml file for Node Exporter with the username and hashed password.
 ##Restart Node Exporter:
+
     ```bash
     sudo systemctl restart node_exporter
     ```
+    
 ##Update the Prometheus YAML file with basic authentication for the specific job.
 Restart Prometheus server:
     ```bash
