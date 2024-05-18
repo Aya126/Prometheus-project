@@ -69,22 +69,22 @@ scrape_configs:
     static_configs:
       - targets: ['192.168.56.111:9100']
  ```
-Restart Prometheus:
+##Restart Prometheus:
      ```bash
      sudo systemctl restart prometheus
      ```
-Authentication Setup
-To set up authentication, we need to create a hash of the password using htpasswd:
+##Authentication Setup
+##To set up authentication, we need to create a hash of the password using htpasswd:
     ```bash
     sudo apt-get update && sudo apt install apache2-utils -y
     htpasswd -nBC 12 "" | tr -d ':\n'
     ```
 Update the config.yml file for Node Exporter with the username and hashed password.
-Restart Node Exporter:
+##Restart Node Exporter:
     ```bash
     sudo systemctl restart node_exporter
     ```
-Update the Prometheus YAML file with basic authentication for the specific job.
+##Update the Prometheus YAML file with basic authentication for the specific job.
 Restart Prometheus server:
     ```bash
     sudo systemctl restart prometheus
