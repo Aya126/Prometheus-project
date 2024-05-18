@@ -1,8 +1,8 @@
-# Authentication/Encryption Setup for Prometheus with Node Exporter
+## Authentication/Encryption Setup for Prometheus with Node Exporter
 
-This guide walks you through setting up Authentication and Encryption in Prometheus along with Node Exporter using self-signed certificates and basic authentication.
+# This guide walks you through setting up Authentication and Encryption in Prometheus along with Node Exporter using self-signed certificates and basic authentication.
 Certificate Generation for Node Exporter
-          
+       
 * To start, we need to generate self-signed certificates for Node Exporter.
 
     ```
@@ -79,14 +79,14 @@ scrape_configs:
       - targets: ['192.168.56.111:9100']
  ```
 
-## Restart Prometheus:
+* Restart Prometheus:
 
      ```bash
      sudo systemctl restart prometheus
      ```
      
-## Authentication Setup
-## To set up authentication, we need to create a hash of the password using htpasswd:
+* Authentication Setup
+* To set up authentication, we need to create a hash of the password using htpasswd:
 
     ```
     sudo apt-get update && sudo apt install apache2-utils -y
@@ -94,13 +94,13 @@ scrape_configs:
     ```
     
 * Update the config.yml file for Node Exporter with the username and hashed password.
-## Restart Node Exporter:
+* Restart Node Exporter:
 
     ```
     sudo systemctl restart node_exporter
     ```
     
-## Update the Prometheus YAML file with basic authentication for the specific job.
+* Update the Prometheus YAML file with basic authentication for the specific job.
 Restart Prometheus server:
 
     ```
